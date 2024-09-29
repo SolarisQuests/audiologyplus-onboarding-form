@@ -1,0 +1,66 @@
+{
+  "name": "form-wizard",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@heroicons/react": "^2.1.5",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@react-pdf/renderer": "^4.0.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "assert": "^2.1.0",
+    "buffer": "^6.0.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "lucide-react": "^0.446.0",
+    "mailgun-js": "^0.22.0",
+    "nodemailer": "^6.9.15",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "pdfkit": "^0.15.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-pdf": "^9.1.1",
+    "react-router-dom": "^6.26.2",
+    "react-scripts": "5.0.1",
+    "stream-browserify": "^3.0.0",
+    "tailwindcss-animate": "^1.0.7",
+    "url": "^0.11.4",
+    "util": "^0.12.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "react-app-rewired": "^2.2.1",
+    "tailwindcss": "^3.4.13"
+  }
+}
