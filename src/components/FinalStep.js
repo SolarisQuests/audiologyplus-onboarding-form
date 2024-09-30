@@ -45,8 +45,10 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
       });
 
       if (!response.ok) {
+        nextStep();//temporary
         const errorData = await response.json();
         throw new Error(`Failed to submit form: ${errorData.message}`);
+
       }
 
       const responseData = await response.json();
