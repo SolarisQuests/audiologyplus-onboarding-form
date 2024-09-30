@@ -36,7 +36,7 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
     updateFormData({ agreed });
     
     try {
-      const response = await fetch('http://localhost:3001/api/submit-form', {
+      const response = await fetch('https://audiologyform-server.onrender.com/api/submit-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
