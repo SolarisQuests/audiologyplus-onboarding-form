@@ -36,8 +36,7 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
     updateFormData({ agreed });
     
     try {
-      // Send form data to backend API
-      const response = await fetch('/api/submit-form', {
+      const response = await fetch('http://localhost:3001/api/submit-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,12 +45,16 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        const errorData = await response.json();
+        throw new Error(`Failed to submit form: ${errorData.message}`);
       }
 
+      const responseData = await response.json();
+      console.log('Form submission response:', responseData);
       nextStep();
     } catch (error) {
-      setError("There was an error submitting the form. Please try again.");
+      console.error('Error submitting form:', error);
+      setError(`There was an error submitting the form: ${error.message}`);
     }
   };
 
@@ -76,7 +79,9 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
           </div>
           <Label htmlFor="terms" className="ml-2 text-sm">
             By electronically executing this agreement, you agree to all of the above{' '}
-            <a href="#" className="text-blue-600 hover:underline">terms and conditions</a>
+            <a href="https://onboarding.audiologyplus.com/terms" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+              terms and conditions
+            </a>
           </Label>
         </div>
         {agreed && (
