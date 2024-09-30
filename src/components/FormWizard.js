@@ -49,7 +49,7 @@ const FormWizard = () => {
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-100">
       <div className="w-full lg:w-1/4 bg-blue-600 text-white p-4 lg:p-8 flex flex-col">
         <div className="mb-6 lg:mb-12">
-          <img src='/Audiologylogo.png' alt="Audiology Plus Logo" className="h-16 mb-2" />
+          <img src='/Audiologylogo.png' alt="Audiology Plus Logo" className="h-[35px] mb-6" />
           <h2 className="text-lg font-semibold">Onboarding Form</h2>
         </div>
         <ProgressTracker currentStep={currentStep} />
