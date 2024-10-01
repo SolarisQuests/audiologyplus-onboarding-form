@@ -21,6 +21,45 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
     setMathProblem({ num1, num2, answer: (num1 + num2).toString() });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!agreed) {
+  //     setError("Please agree to the terms and conditions to proceed.");
+  //     return;
+  //   }
+  //   if (userAnswer !== mathProblem.answer) {
+  //     setError("Incorrect answer. Please try again to confirm you're not a bot.");
+  //     generateMathProblem();
+  //     setUserAnswer('');
+  //     return;
+  //   }
+  //   updateFormData({ agreed });
+    
+  //   try {
+  //     const response = await fetch('https://audiologyform-server.onrender.com/api/submit-form', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (!response.ok) {
+  //       nextStep();//temporary
+  //       const errorData = await response.json();
+  //       throw new Error(`Failed to submit form: ${errorData.message}`);
+
+  //     }
+
+  //     const responseData = await response.json();
+  //     console.log('Form submission response:', responseData);
+  //     nextStep();
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //     setError(`There was an error submitting the form: ${error.message}`);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!agreed) {
@@ -45,10 +84,9 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
       });
 
       if (!response.ok) {
-        nextStep();//temporary
         const errorData = await response.json();
+        nextStep();
         throw new Error(`Failed to submit form: ${errorData.message}`);
-
       }
 
       const responseData = await response.json();
@@ -100,7 +138,7 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
             />
           </div>
         )}
-        {error && <p className="text-red-500">{error}</p>}
+       
         <div className="flex justify-between pt-4">
           <Button type="button" onClick={prevStep} variant="outline">Prev</Button>
           <Button type="submit" disabled={!agreed}>Submit</Button>
