@@ -42,7 +42,7 @@ app.post('/api/submit-form', async (req, res) => {
       .join('\n');
 
     // Add Terms & Conditions confirmation to the email
-    const termsLink = 'https://onboarding.audiologyplus.com/terms';
+    const termsLink = 'https://audiologyplus-onboarding-form.vercel.app/terms';
     const termsConfirmation = `\n\nHere is the link for the terms and conditions which you have accepted for Audiology Plus. This is for your review: ${termsLink}`;
 
     console.log('Preparing to send email to:', formData.email);
