@@ -19,7 +19,10 @@ const FormWizard = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < 6) {
+    if (currentStep === 1) {
+      setCurrentStep(2);
+      navigate('/step2');
+    } else if (currentStep < 6) {
       setCurrentStep(currentStep + 1);
       navigate(`/step${currentStep + 1}`);
     } else {
@@ -67,7 +70,19 @@ const FormWizard = () => {
             <Route path="/step5" element={renderStep(Step5)} />
             <Route path="/step6" element={renderStep(FinalStep)} />
             <Route path="/confirmation" element={<Confirmation formData={formData} />} />
-            <Route path="/" element={<Navigate to="/step1" replace />} />
+            { /*<Route path="/" element={<Navigate to="/step1" replace />} /> */ }
+            <Route
+              path="/"
+              element={
+                <Step1
+                  formData={formData}
+                  updateFormData={updateFormData}
+                  nextStep={nextStep}
+                  prevStep={prevStep}
+                  submitForm={submitForm}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>
