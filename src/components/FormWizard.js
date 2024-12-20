@@ -73,13 +73,12 @@ const FormWizard = () => {
             { /*<Route path="/" element={<Navigate to="/step1" replace />} /> */ }
             <Route
               path="/"
-              element={
+              element={                
                 <Step1
                   formData={formData}
                   updateFormData={updateFormData}
                   nextStep={nextStep}
                   prevStep={prevStep}
-                  submitForm={submitForm}
                 />
               }
             />
