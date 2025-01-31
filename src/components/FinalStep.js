@@ -36,7 +36,7 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
   //   updateFormData({ agreed });
     
   //   try {
-  //     const response = await fetch('https://audiologyform-server.onrender.com/api/submit-form', {
+  //     const response = await fetch('https://audiologyform-server.vercel.app/api/submit-form', {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const FinalStep = ({ formData, updateFormData, nextStep, prevStep }) => {
     updateFormData({ agreed });
     
     try {
-      const response = await fetch('https://audiologyform-server.onrender.com/api/submit-form', {
+      const response = await fetch('https://audiologyform-server.vercel.app/api/submit-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
