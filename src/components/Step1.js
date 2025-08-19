@@ -11,17 +11,24 @@ const Step1 = ({ formData, updateFormData, nextStep, prevStep }) => {
   const [position, setPosition] = useState(formData.position || '');
   const [errors, setErrors] = useState({});
 
-  const validatePhone = (phone) => {
+ /* const validatePhone = (phone) => {
     const phoneRegex = /^(\+1|1)?[-.\s]?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
     return phoneRegex.test(phone);
   };
+  */
+  
+const validatePhone = (phone) => {
+  const phoneRegex = /^((\+?1)?[-.\s]?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}|(\+?44\s?7\d{3}|\(?0?7\d{3}\)?)\s?\d{3}\s?\d{3}|(\+?44\s?\d{2,4}|0\d{2,4})\s?\d{3,4}\s?\d{3,4})$/;
+  return phoneRegex.test(phone.trim());
+};
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
     if (!validatePhone(phone)) {
-      newErrors.phone = "Please enter a valid US phone number";
+      newErrors.phone = "Please enter a valid US / UK phone number";
     }
 
     if (Object.keys(newErrors).length === 0) {
