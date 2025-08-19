@@ -85,7 +85,7 @@ const Step3 = ({ formData, updateFormData, nextStep, prevStep }) => {
   const removeLocation = (index) => {
     setLocations(locations.filter((_, i) => i !== index));
   };
-
+  /* 
   const validatePhone = (phone) => {
     const phoneRegex = /^(\+1|1)?[-.\s]?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
     return phoneRegex.test(phone);
@@ -95,6 +95,20 @@ const Step3 = ({ formData, updateFormData, nextStep, prevStep }) => {
     const zipRegex = /^\d{5}(-\d{4})?$/;
     return zipRegex.test(zip);
   };
+  */
+  const validatePhone = (phone) => {
+  const phoneRegex = /^((\+?1)?[-.\s]?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}|(\+?44\s?7\d{3}|\(?0?7\d{3}\)?)\s?\d{3}\s?\d{3}|(\+?44\s?\d{2,4}|0\d{2,4})\s?\d{3,4}\s?\d{3,4})$/;
+  return phoneRegex.test(phone.trim());
+};
+  const validateZip = (zip) => {
+    // US ZIP: 12345 or 12345-6789
+    const usZip = /^\d{5}(-\d{4})?$/;
+
+    // UK Postcode: (e.g. SW1A 1AA, M1 1AE, W1A 0AX, EC1A 1BB)
+    const ukPostcode = /^([Gg][Ii][Rr] 0[Aa]{2}|(?![QqVvXx])[A-Za-z]{1,2}\d{1,2}[A-Za-z]?\s?\d[A-Za-z]{2})$/;
+
+    return usZip.test(zip.trim()) || ukPostcode.test(zip.trim());
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -102,10 +116,10 @@ const Step3 = ({ formData, updateFormData, nextStep, prevStep }) => {
 
     locations.forEach((location, index) => {
       if (!validatePhone(location.phone)) {
-        newErrors[`phone_${index}`] = "Please enter a valid US phone number";
+        newErrors[`phone_${index}`] = "Please enter a valid  US / UK phone numbers";
       }
       if (!validateZip(location.zip)) {
-        newErrors[`zip_${index}`] = "Please enter a valid US ZIP code";
+        newErrors[`zip_${index}`] = "Please enter a valid US / UK ZIP codes";
       }
     });
 
