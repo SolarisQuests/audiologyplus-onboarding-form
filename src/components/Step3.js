@@ -31,7 +31,7 @@ const LocationFields = ({ location, updateLocation, removeLocation, errors }) =>
         placeholder="City"
         required
       />
-      <select
+      {/* <select
         value={location.state}
         onChange={(e) => updateLocation('state', e.target.value)}
         className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -41,7 +41,18 @@ const LocationFields = ({ location, updateLocation, removeLocation, errors }) =>
         {US_STATES.map(state => (
           <option key={state} value={state}>{state}</option>
         ))}
-      </select>
+      </select> */}
+
+       <Input
+        id="state"
+        value={location.state || ""}
+        onChange={(e) => updateLocation("state", e.target.value.toUpperCase())}
+        placeholder="Enter state (e.g. CA)"
+        required
+      />
+            
+      {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
+
       <Input
         value={location.zip}
         onChange={(e) => updateLocation('zip', e.target.value)}
@@ -70,6 +81,7 @@ const LocationFields = ({ location, updateLocation, removeLocation, errors }) =>
 const Step3 = ({ formData, updateFormData, nextStep, prevStep }) => {
   const [locations, setLocations] = useState(formData.locations || [{}]);
   const [errors, setErrors] = useState({});
+  
 
   const addLocation = () => {
     setLocations([...locations, {}]);
@@ -85,21 +97,22 @@ const Step3 = ({ formData, updateFormData, nextStep, prevStep }) => {
   const removeLocation = (index) => {
     setLocations(locations.filter((_, i) => i !== index));
   };
-  /* 
-  const validatePhone = (phone) => {
+
+ /* const validatePhone = (phone) => {
     const phoneRegex = /^(\+1|1)?[-.\s]?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
     return phoneRegex.test(phone);
   };
-
-  const validateZip = (zip) => {
-    const zipRegex = /^\d{5}(-\d{4})?$/;
-    return zipRegex.test(zip);
-  };
   */
-  const validatePhone = (phone) => {
+ const validatePhone = (phone) => {
   const phoneRegex = /^((\+?1)?[-.\s]?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}|(\+?44\s?7\d{3}|\(?0?7\d{3}\)?)\s?\d{3}\s?\d{3}|(\+?44\s?\d{2,4}|0\d{2,4})\s?\d{3,4}\s?\d{3,4})$/;
   return phoneRegex.test(phone.trim());
 };
+  /*
+  const validateZip = (zip) => {
+    const zipRegex = /^\d{5}(-\d{4})?$/;
+    return zipRegex.test(zip);
+  }; */
+
   const validateZip = (zip) => {
     // US ZIP: 12345 or 12345-6789
     const usZip = /^\d{5}(-\d{4})?$/;
@@ -110,16 +123,31 @@ const Step3 = ({ formData, updateFormData, nextStep, prevStep }) => {
     return usZip.test(zip.trim()) || ukPostcode.test(zip.trim());
   };
 
+
+   const validateState = (state) => {
+    // US: 2 uppercase letters (CA, NY, etc.)
+    const usState = /^[A-Z]{2}$/;
+
+    // UK: allow alphabetic words (e.g. "England", "Scotland", "Wales", "Kent")
+    const ukRegion = /^[A-Za-z ]{2,}$/;
+
+    return usState.test(state) || ukRegion.test(state);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
     locations.forEach((location, index) => {
       if (!validatePhone(location.phone)) {
-        newErrors[`phone_${index}`] = "Please enter a valid  US / UK phone numbers";
+        newErrors[`phone_${index}`] = "Please enter a valid US / UK phone numberr";
       }
       if (!validateZip(location.zip)) {
-        newErrors[`zip_${index}`] = "Please enter a valid US / UK ZIP codes";
+        newErrors[`zip_${index}`] = "Please enter a valid US / UK ZIP code";
+      }
+
+       if (!validateState(location.state)) {
+        newErrors[`state_${index}`] = "Please enter a valid US / UK state code";
       }
     });
 
@@ -148,7 +176,8 @@ const Step3 = ({ formData, updateFormData, nextStep, prevStep }) => {
             removeLocation={() => removeLocation(index)}
             errors={{
               phone: errors[`phone_${index}`],
-              zip: errors[`zip_${index}`]
+              zip: errors[`zip_${index}`],
+              state: errors[`state_${index}`]
             }}
           />
         ))}
